@@ -24,7 +24,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
 
-
     private static final LatLng point1=new LatLng(23.479681, 120.449826);
     private static final LatLng point2=new LatLng(23.481347, 120.447699);
     private Marker marker1;
@@ -79,9 +78,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(point2,15));
                 marker2=mMap.addMarker(new MarkerOptions().position(point2).
                         icon(BitmapDescriptorFactory
-                                .defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                                .defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("中正"));
+                marker2.setTag(40);
+                marker2.setAlpha(20f);
                 CircleOptions circleOptions=new
-                        CircleOptions().center(point2).radius(20);
+                        CircleOptions().center(point2).radius(100);
                 circleOptions.fillColor(getColor(R.color.yellow));
                 circleOptions.strokeColor(R.color.red);
 
@@ -101,7 +102,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public boolean onMarkerClick(Marker marker) {
                 Integer tag=(Integer)marker.getTag();
                 if(tag==20){
-                    Log.d("!!!!!!!!!","marker:Title "+marker.getTitle());
+                    Log.d("XXXXXXXXXXXX","marker:Title "+marker.getTitle());
+                }else if(tag==40){
+                    Log.d("XXXXXXXXXXXX","marker:Title "+marker.getTitle());
                 }
                 return false;
             }
@@ -110,6 +113,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(23.479269, 120.442817);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney,15));
     }
 }
